@@ -157,7 +157,8 @@ kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.28.0
 watch kubectl get pods -n calico-system
 ```
 
-### Execute the command above. It should return the following: node/<your-hostname> untainted
+### Execute the command above
+It should return the following: node/<your-hostname> untainted
 ```
 kubectl taint nodes --all node-role.kubernetes.io/control-plane-
 ```
