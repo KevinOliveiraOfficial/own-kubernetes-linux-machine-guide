@@ -2,6 +2,12 @@
 Guide (full extracted from https://kubernetes.io/) to create your own kubernetes machine without docker using linux, kubeadm, containerd, runc and CNI Plugins.
 Only to create simulations for official in-production kubernetes like AWS, Google Cloud Platform, Azure.
 
+## Recommended/Minimum requiriments for a new linux machine (node)
+This settings has been tested on CentOS Stream 9 on VM hosted on a Hyper-V on Windows Server 2019
+- Storage: 20G ( 12GB is only for S.O and required packages )
+- CPU: 2 cores
+- RAM: 8GB
+
 ## Step 1: UPDATE YOUR SYSTEM
 ```
 sudo yum update -y
