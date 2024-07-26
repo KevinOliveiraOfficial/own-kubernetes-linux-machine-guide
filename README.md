@@ -11,7 +11,7 @@ sudo yum update -y
 sudo yum install -y yum-utils
 ```
 ##  Step 3: OPEN REQUIRED PORTS
-- If the machine is a Master node
+If the machine is a Master node
 ```
 sudo firewall-cmd --zone=public --add-port=6443/tcp --permanent
 sudo firewall-cmd --zone=public --add-port=2379-2380/tcp --permanent
@@ -20,31 +20,31 @@ sudo firewall-cmd --zone=public --add-port=10251/tcp --permanent
 sudo firewall-cmd --zone=public --add-port=10252/tcp --permanent
 ```
 
-- If the machine is a Worker node
+If the machine is a Worker node
 ```
 sudo firewall-cmd --zone=public --add-port=10250/tcp --permanent
 sudo firewall-cmd --zone=public --add-port=30000-32767/tcp --permanent
 ```
 
-- Calico pods network
+Install Calico pods network
 ```
 sudo firewall-cmd --zone=public --add-port=8285/udp --permanent
 ```
 
-- Reload firewall
+Reload firewall
 ```
 sudo firewall-cmd --reload
 ```
 
 ##  Step 4: CONTAINER RUNTIMES - INSTALL AND CONFIGURE PREREQUISITES
 ### Enable IPv4 packet forwarding
-- sysctl params required by setup, params persist across reboots
+sysctl params required by setup, params persist across reboots
 ```
 cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
 net.ipv4.ip_forward = 1
 EOF
 ```
-- Apply sysctl params without reboot
+Apply sysctl params without reboot
 sudo sysctl --system
 
 ## Step 5: INSTALLING CONTAINERD
@@ -75,7 +75,7 @@ sudo /usr/local/bin/containerd config default | sudo tee /etc/containerd/config.
 ```
 
 ## Configuring the systemd cgroup driver
-- To use the systemd cgroup driver in /etc/containerd/config.toml with runc, set:
+To use the systemd cgroup driver in /etc/containerd/config.toml with runc, set:
 ```
 [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
 ...
@@ -120,7 +120,7 @@ sudo systemctl enable --now kubelet
 ```
 
 ## STEP 7: DISABLE SWAP PERMAMENT
-- comment swap line
+comment swap line
 ```
 sudo vim /etc/fstab
 ```
