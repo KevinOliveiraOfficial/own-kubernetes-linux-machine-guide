@@ -169,9 +169,10 @@ kubectl get nodes -o wide
 ```
 
 ## (Utils)
-Restart all services
+Restart all services commands
+```
 sudo systemctl daemon-reload
 sudo systemctl restart containerd
 sudo systemctl restart kubelet
-
+```
 
