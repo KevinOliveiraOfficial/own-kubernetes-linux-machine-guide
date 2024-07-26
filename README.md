@@ -1,39 +1,49 @@
 # Create your own kubernetes machine without docker (own-linux-kubernetes-machine-guide)
 Guide to create your own kubernetes machine without docker using linux, kubeadm, containerd, runc and CNI Plugins.
+Only to create simulations for official in-production kubernetes like AWS, Google Cloud Platform, Azure.
 
-## Update system
+## Step 1: Update system
 ```
 sudo yum update -y
 ```
-## Install required packages
+## Step 2: Install required packages
+```
 sudo yum install -y yum-utils
-
-## OPEN REQUIRED PORTS
-### Master node
+```
+##  Step 3: OPEN REQUIRED PORTS
+### If the machine is a Master node
+```
 sudo firewall-cmd --zone=public --add-port=6443/tcp --permanent
 sudo firewall-cmd --zone=public --add-port=2379-2380/tcp --permanent
 sudo firewall-cmd --zone=public --add-port=10250/tcp --permanent
 sudo firewall-cmd --zone=public --add-port=10251/tcp --permanent
 sudo firewall-cmd --zone=public --add-port=10252/tcp --permanent
+```
 
-### Worker node
+### If the machine is a Worker node
+```
 sudo firewall-cmd --zone=public --add-port=10250/tcp --permanent
 sudo firewall-cmd --zone=public --add-port=30000-32767/tcp --permanent
+```
 
 ### Calico pods network
+```
 sudo firewall-cmd --zone=public --add-port=8285/udp --permanent
+```
 
 ### Reload firewall
+```
 sudo firewall-cmd --reload
+```
 
-# [Container Runtimes - Install and configure prerequisites]
-
-## Enable IPv4 packet forwarding
-### sysctl params required by setup, params persist across reboots
+##  Step 4: Container Runtimes - Install and configure prerequisites
+### Enable IPv4 packet forwarding
+- sysctl params required by setup, params persist across reboots
+```
 cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
 net.ipv4.ip_forward = 1
 EOF
-
+```
 ### Apply sysctl params without reboot
 sudo sysctl --system
 
