@@ -95,7 +95,7 @@ sudo setenforce 0
 sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
 ```
 
-- Add the Kubernetes yum repository
+### Add the Kubernetes yum repository
 This overwrites any existing configuration in /etc/yum.repos.d/kubernetes.repo
 ```
 cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
