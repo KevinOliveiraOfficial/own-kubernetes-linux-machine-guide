@@ -138,16 +138,39 @@ sudo kubeadm init --pod-network-cidr=192.168.0.0/16
 ```
 
 ## STEP 9: Execute the command that appears after start cluster
+The command looks like
 ```
-echo "Execute the command that appears after start cluster"
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
 
-## STEP 10: Install pods network
+## STEP 10: Install calico kubernetes for pods network
+### Use the command above
 ```
-kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
+kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.28.0/manifests/tigera-operator.yaml
+kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.28.0/manifests/custom-resources.yaml
+```
+
+### Watch until each pod has the STATUS of Running
+```
+watch kubectl get pods -n calico-system
+```
+
+### Execute the command above. It should return the following: node/<your-hostname> untainted
+```
+kubectl taint nodes --all node-role.kubernetes.io/control-plane-
 ```
 
 ## Check node status
 ```
-kubectl get nodes
+kubectl get nodes -o wide
 ```
+
+## (Utils)
+Restart all services
+sudo systemctl daemon-reload
+sudo systemctl restart containerd
+sudo systemctl restart kubelet
+
+
