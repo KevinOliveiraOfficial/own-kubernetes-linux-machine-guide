@@ -4,9 +4,9 @@ Only to create simulations for official in-production kubernetes like AWS, Googl
 
 ## Recommended/Minimum requiriments for a new linux machine (node)
 This settings has been tested on VM (with CentOS Stream 9) hosted on a Hyper-V on Windows Server 2019
-- Storage: 20G ( 12GB is only for S.O and required packages )
-- CPU: 2 cores
-- RAM: 8GB
+- Storage: minimum: 20G ( 12GB is only for S.O and required packages )
+- CPU: minimum: 2 cores
+- RAM: minimum: 4GB / recommended: 8GB
 
 ## Step 1: UPDATE YOUR SYSTEM
 ```
