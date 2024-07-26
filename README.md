@@ -2,8 +2,9 @@
 Guide to create your own kubernetes machine without docker using linux, kubeadm, containerd, runc and CNI Plugins.
 
 ## Update system
+```
 sudo yum update -y
-
+```
 ## Install required packages
 sudo yum install -y yum-utils
 
