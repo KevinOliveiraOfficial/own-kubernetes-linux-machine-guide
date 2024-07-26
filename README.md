@@ -1,17 +1,20 @@
 # Create your own kubernetes machine without docker (own-linux-kubernetes-machine-guide)
-Guide to create your own kubernetes machine without docker using linux, kubeadm, containerd, runc and CNI Plugins.
+Guide (full extracted from https://kubernetes.io/) to create your own kubernetes machine without docker using linux, kubeadm, containerd, runc and CNI Plugins.
 Only to create simulations for official in-production kubernetes like AWS, Google Cloud Platform, Azure.
 
 ## Step 1: UPDATE YOUR SYSTEM
 ```
 sudo yum update -y
 ```
+
 ## Step 2: INSTALL REQUIRED PACKAGES
 ```
 sudo yum install -y yum-utils
 ```
+
 ##  Step 3: OPEN REQUIRED PORTS
-If the machine is a Master node
+### Node ports
+- If the machine is a Master node
 ```
 sudo firewall-cmd --zone=public --add-port=6443/tcp --permanent
 sudo firewall-cmd --zone=public --add-port=2379-2380/tcp --permanent
@@ -20,18 +23,18 @@ sudo firewall-cmd --zone=public --add-port=10251/tcp --permanent
 sudo firewall-cmd --zone=public --add-port=10252/tcp --permanent
 ```
 
-If the machine is a Worker node
+- If the machine is a Worker node
 ```
 sudo firewall-cmd --zone=public --add-port=10250/tcp --permanent
 sudo firewall-cmd --zone=public --add-port=30000-32767/tcp --permanent
 ```
 
-Install Calico pods network
+### Calico pods network ports
 ```
 sudo firewall-cmd --zone=public --add-port=8285/udp --permanent
 ```
 
-Reload firewall
+### Reload firewall
 ```
 sudo firewall-cmd --reload
 ```
@@ -45,7 +48,9 @@ net.ipv4.ip_forward = 1
 EOF
 ```
 Apply sysctl params without reboot
+```
 sudo sysctl --system
+```
 
 ## Step 5: INSTALLING CONTAINERD
 ### Installing containerd
@@ -57,11 +62,13 @@ sudo curl -o /usr/local/lib/systemd/system/containerd.service https://raw.github
 systemctl daemon-reload
 systemctl enable --now containerd
 ```
+
 ### Installing runc
 ```
 wget https://github.com/opencontainers/runc/releases/download/v1.1.13/runc.amd64
 sudo install -m 755 runc.amd64 /usr/local/sbin/runc
 ```
+
 ### Installing CNI plugins
 ```
 wget https://github.com/containernetworking/plugins/releases/download/v1.5.1/cni-plugins-linux-amd64-v1.5.1.tgz
