@@ -2,11 +2,11 @@
 Guide to create your own kubernetes machine without docker using linux, kubeadm, containerd, runc and CNI Plugins.
 Only to create simulations for official in-production kubernetes like AWS, Google Cloud Platform, Azure.
 
-## Step 1: Update system
+## Step 1: UPDATE YOUR SYSTEM
 ```
 sudo yum update -y
 ```
-## Step 2: Install required packages
+## Step 2: INSTALL REQUIRED PACKAGES
 ```
 sudo yum install -y yum-utils
 ```
@@ -36,7 +36,7 @@ sudo firewall-cmd --zone=public --add-port=8285/udp --permanent
 sudo firewall-cmd --reload
 ```
 
-##  Step 4: Container Runtimes - Install and configure prerequisites
+##  Step 4: CONTAINER RUNTIMES - INSTALL AND CONFIGURE PREREQUISITES
 ### Enable IPv4 packet forwarding
 - sysctl params required by setup, params persist across reboots
 ```
@@ -47,9 +47,8 @@ EOF
 - Apply sysctl params without reboot
 sudo sysctl --system
 
-## STEP 5: INSTALLING CONTAINERD
+## Step 5: INSTALLING CONTAINERD
 ### Installing containerd
-- Execute all commands
 ```
 wget https://github.com/containerd/containerd/releases/download/v1.7.20/containerd-1.7.20-linux-amd64.tar.gz
 sudo tar -C /usr/local -xvzf containerd-1.7.20-linux-amd64.tar.gz
@@ -59,13 +58,11 @@ systemctl daemon-reload
 systemctl enable --now containerd
 ```
 ### Installing runc
-- Execute all commands
 ```
 wget https://github.com/opencontainers/runc/releases/download/v1.1.13/runc.amd64
 sudo install -m 755 runc.amd64 /usr/local/sbin/runc
 ```
 ### Installing CNI plugins
-- Execute all commands
 ```
 wget https://github.com/containernetworking/plugins/releases/download/v1.5.1/cni-plugins-linux-amd64-v1.5.1.tgz
 mkdir -p /opt/cni/bin
@@ -91,7 +88,7 @@ sudo /usr/local/bin/containerd config default | sudo tee /etc/containerd/config.
 sudo systemctl restart containerd
 ```
 
-## STEP 5: INSTALLING KUBEADM, KUBELET AND KUBECTL
+## STEP 6: INSTALLING KUBEADM, KUBELET AND KUBECTL
 ### Set SELinux in permissive mode (effectively disabling it)
 ```
 sudo setenforce 0
@@ -122,28 +119,28 @@ sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
 sudo systemctl enable --now kubelet
 ```
 
-## STEP 6: DISABLE SWAP PERMAMENT
+## STEP 7: DISABLE SWAP PERMAMENT
 - comment swap line
 ```
 sudo vim /etc/fstab
 ```
 
-## STEP 7: Start cluster
+## STEP 8: Start cluster
 ```
 sudo kubeadm init --pod-network-cidr=192.168.0.0/16
 ```
 
-## STEP 8: Execute the command that appears after start cluster
+## STEP 9: Execute the command that appears after start cluster
 ```
 echo "Execute the command that appears after start cluster"
 ```
 
-## STEP 9: Install pods network
+## STEP 10: Install pods network
 ```
 kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
 ```
 
-## STEP 10: Check node status
+## Check node status
 ```
 kubectl get nodes
 ```
