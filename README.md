@@ -3,7 +3,7 @@ Guide (full extracted from https://kubernetes.io/) to create your own kubernetes
 Only to create simulations for official in-production kubernetes like AWS, Google Cloud Platform, Azure.
 
 ## Recommended/Minimum requiriments for a new linux machine (node)
-This settings has been tested on CentOS Stream 9 on VM hosted on a Hyper-V on Windows Server 2019
+This settings has been tested on VM (with CentOS Stream 9) hosted on a Hyper-V on Windows Server 2019
 - Storage: 20G ( 12GB is only for S.O and required packages )
 - CPU: 2 cores
 - RAM: 8GB
