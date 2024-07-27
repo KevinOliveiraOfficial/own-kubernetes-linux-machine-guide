@@ -156,7 +156,7 @@ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
 
-## STEP 9 (ONLY ON MASTER NODE): INSTALL CALICO TO MAKE PODS NETWORK WORKING
+## STEP 9: INSTALL CALICO TO MAKE PODS NETWORK WORKING
 #### STEP 9.1: Execute the kubectl create:
 ```
 kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.28.0/manifests/tigera-operator.yaml
