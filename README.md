@@ -182,13 +182,14 @@ sudo systemctl restart containerd
 sudo systemctl restart kubelet
 ```
 
-## Installing metallb If you want LoadBalancer working on your kubernetes
+## Installing metallb (case you want LoadBalancer working on your kubernetes)
 - Ref Link: https://metallb.universe.tf/installation/
-Run
+ 
+### Run
 ```
 kubectl edit configmap -n kube-system kube-proxy
 ```
-and set:
+### and set:
 ```
 apiVersion: kubeproxy.config.k8s.io/v1alpha1
 kind: KubeProxyConfiguration
@@ -196,7 +197,7 @@ mode: "ipvs"
 ipvs:
   strictARP: true
 ```
-Apply:
+### Then apply:
 ```
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.14.8/config/manifests/metallb-native.yaml
 kubectl apply -f - <<EOF
@@ -220,3 +221,7 @@ spec:
   - default
 EOF
 ```
+
+
+## Util links:
+- Getting started with new Gateway API: https://gateway-api.sigs.k8s.io/guides/
