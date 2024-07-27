@@ -1,10 +1,12 @@
-# Create your own kubernetes machine without docker (own-linux-kubernetes-machine-guide)
-Guide (fully extracted from https://kubernetes.io/) to create your own kubernetes machine without docker using linux, kubeadm, containerd, runc and CNI Plugins.
-Only to create simulations for official in-production kubernetes like AWS, Google Cloud Platform, Azure.
+# Create your own kubernetes cluster and machines without docker (own-linux-kubernetes-machine-guide)
+Easy guide (fully extracted from https://kubernetes.io/) to create your own kubernetes cluster and machines without docker using linux, kubeadm, containerd, runc and CNI Plugins.
+
+Purpose: create simulations for official in-production kubernetes like AWS, Google Cloud Platform, Azure.
 
 ## Recommended/Minimum requiriments for a new linux machine (node)
 This settings has been tested on VM (with CentOS Stream 9) hosted on a Hyper-V on Windows Server 2019
-- SPEC: Minimum / Recommended
+
+Minimum / Recommended specifications
 - Storage: 20G ( 12GB is only for S.O and required packages )
 - CPU: 2 cores
 - RAM: 4GB /  8GB
@@ -85,11 +87,12 @@ sudo tar -C /opt/cni/bin -xvzf cni-plugins-linux-amd64-v1.5.1.tgz
 
 #### Step 5.4: Generate default containerd configuration
 ```
+sudo mkdir -p /etc/containerd/
 sudo /usr/local/bin/containerd config default | sudo tee /etc/containerd/config.toml
 ```
 
 #### Step 5.5: Configuring the systemd cgroup driver
-To use the systemd cgroup driver in /etc/containerd/config.toml with runc, set:
+To use the systemd cgroup driver in **_/etc/containerd/config.toml_** with runc, open the file then search and set:
 ```
 [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
 ...
@@ -176,7 +179,14 @@ kubectl taint nodes --all node-role.kubernetes.io/control-plane-
 kubectl get nodes -o wide
 ```
 
-## (Utils)
+## Appendices:
+### Joining worker nodes in master node on the cluster
+After repeating this guide to create a worker node, you need to create a join command token on the master node:
+```
+kubeadm token create --print-join-command
+```
+Then after token creation, copy and paste the generated command on the worker node.
+### Utils
 Restart all services commands
 ```
 sudo systemctl daemon-reload
@@ -184,6 +194,6 @@ sudo systemctl restart containerd
 sudo systemctl restart kubelet
 ```
  
-## Util links:
+### Util links:
 - [Making LoadBalancer work](https://github.com/KevinOliveiraOfficial/own-kubernetes-linux-machine-guide/blob/main/LOAD_BALANCER_GUIDE.md)
-- Getting started with new Gateway API: https://gateway-api.sigs.k8s.io/guides/
+- Getting started with the new Gateway API: https://gateway-api.sigs.k8s.io/guides/
