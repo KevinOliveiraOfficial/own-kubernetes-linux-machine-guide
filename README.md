@@ -1,5 +1,5 @@
-# Create your own kubernetes cluster and machines without docker (own-linux-kubernetes-machine-guide)
-Easy guide (fully extracted from https://kubernetes.io/) to create your own kubernetes cluster and machines without docker using linux, kubeadm, containerd, runc and CNI Plugins.
+# Create your own pure kubernetes cluster and machines without docker
+Easy guide (fully extracted from https://kubernetes.io/) to create your own pure kubernetes cluster and machine nodes without docker using linux, kubeadm, containerd, runc and CNI Plugins.
 
 Purpose: create simulations for official in-production kubernetes like AWS, Google Cloud Platform, Azure.
 
