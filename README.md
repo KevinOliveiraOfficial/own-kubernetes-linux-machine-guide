@@ -138,12 +138,12 @@ comment swap line
 sudo vim /etc/fstab
 ```
 
-## STEP 8: Start cluster
+## STEP 8: Start cluster (ONLY ON MASTER NODE)
 ```
 sudo kubeadm init --pod-network-cidr=192.168.0.0/16
 ```
 
-## STEP 9: Execute the command that appears after start cluster
+## STEP 9: Execute the command that appears after start cluster (ONLY ON MASTER NODE)
 The command looks like
 ```
 mkdir -p $HOME/.kube
@@ -151,19 +151,19 @@ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
 
-## STEP 10: Install calico kubernetes for pods network
+## STEP 10: Install calico kubernetes for pods network (ONLY ON MASTER NODE)
 ### Use the command above
 ```
 kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.28.0/manifests/tigera-operator.yaml
 kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.28.0/manifests/custom-resources.yaml
 ```
 
-### Watch until each pod has the STATUS of Running
+### Watch until each pod has the STATUS of Running (ONLY ON MASTER NODE)
 ```
 watch kubectl get pods -n calico-system
 ```
 
-### Execute the command above
+### Execute the command above (ONLY ON MASTER NODE)
 It should return the following: node/<your-hostname> untainted
 ```
 kubectl taint nodes --all node-role.kubernetes.io/control-plane-
